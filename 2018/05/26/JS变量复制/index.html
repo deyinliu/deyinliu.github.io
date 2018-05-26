@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://liudeyin1024.github.io">
-  <title>学习资料 | Liudyin的博客</title>
+  <title>JS变量复制 | Liudyin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不定期更新学习过程中遇到的优秀资源">
-<meta name="keywords" content="学习资料,分享">
+  <meta name="description" content="最近在看李松峰、曹力翻译的《JavaScript高级程序设计（第三版）》。关于JS变量复制我有一些自己的理解。">
+<meta name="keywords" content="JS,学习笔记,前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习资料">
-<meta property="og:url" content="https://liudeyin1024.github.io/2018/04/29/学习资料/index.html">
+<meta property="og:title" content="JS变量复制">
+<meta property="og:url" content="https://liudeyin1024.github.io/2018/05/26/JS变量复制/index.html">
 <meta property="og:site_name" content="Liudyin的博客">
-<meta property="og:description" content="不定期更新学习过程中遇到的优秀资源">
+<meta property="og:description" content="最近在看李松峰、曹力翻译的《JavaScript高级程序设计（第三版）》。关于JS变量复制我有一些自己的理解。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-29T08:03:39.347Z">
+<meta property="og:image" content="https://liudeyin1024.github.io/img/d1.png">
+<meta property="og:image" content="https://liudeyin1024.github.io/img/d2.png">
+<meta property="og:updated_time" content="2018-05-26T04:13:11.362Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习资料">
-<meta name="twitter:description" content="不定期更新学习过程中遇到的优秀资源">
+<meta name="twitter:title" content="JS变量复制">
+<meta name="twitter:description" content="最近在看李松峰、曹力翻译的《JavaScript高级程序设计（第三版）》。关于JS变量复制我有一些自己的理解。">
+<meta name="twitter:image" content="https://liudeyin1024.github.io/img/d1.png">
   
     <link rel="alternative" href="/atom.xml" title="Liudyin的博客" type="application/atom+xml">
   
@@ -149,32 +152,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-学习资料" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JS变量复制" class="article article-type-post " itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
   
     <h1 class="article-title" itemprop="name">
-      学习资料
+      JS变量复制
     </h1>
   
 
                     
-                        <a href="/2018/04/29/学习资料/" class="archive-article-date">
-  	<time datetime="2018-04-29T07:20:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-29</time>
+                        <a href="/2018/05/26/JS变量复制/" class="archive-article-date">
+  	<time datetime="2018-05-26T03:02:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-26</time>
 </a>
                             
             </header>
             
                 <div class="article-entry" itemprop="articleBody">
                     
-                                        <p>不定期更新学习过程中遇到的优秀资源<br><a id="more"></a></p>
-<h2 id="机器学习相关"><a href="#机器学习相关" class="headerlink" title="机器学习相关"></a>机器学习相关</h2><ul>
-<li><p><a href="https://zh.gluon.ai/" target="_blank" rel="noopener">李沐老师MxNet深度学习课程</a></p>
-</li>
-<li><p><a href="https://github.com/liudeyin1024/deeplearning_ai_books" target="_blank" rel="noopener">吴恩达老师机器学习课程中文笔记</a>   <a href="https://github.com/fengdu78/Coursera-ML-AndrewNg-Notes" target="_blank" rel="noopener">来源</a></p>
-</li>
+                                        <p>最近在看李松峰、曹力翻译的《JavaScript高级程序设计（第三版）》。关于JS变量复制我有一些自己的理解。<br><a id="more"></a></p>
+<h2 id="基本类型变量复制"><a href="#基本类型变量复制" class="headerlink" title="基本类型变量复制"></a>基本类型变量复制</h2><p><strong>实例如下</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b = b + <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">//a的值为1</span></span><br><span class="line"><span class="built_in">console</span>.log(b);<span class="comment">//b的值为2</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>解释</strong></p>
+<ul>
+<li>声明变量，在内存中创建变量值，并将变量名指向该内存空间。</li>
+<li>变量复制，在新的内存空间中创建前述过程中值相等的变量，将新的变量名指向新内存空间。过程如下图：<br><img src="/img/d1.png" alt="基本数据类型复制"></li>
+</ul>
+<h2 id="引用类型复制"><a href="#引用类型复制" class="headerlink" title="引用类型复制"></a>引用类型复制</h2><p><strong>实例如下</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b.number = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">//&#123;number:3&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>解释</strong></p>
+<ul>
+<li>变量声明，通过<code>new</code>关键字，开辟新的内存空间，并把变量名指向该内存空间。</li>
+<li>变量复制，将新的变量名指向上述过程中创建的内存空间。<br><strong><em>即两个变量指向同一内存空间</em></strong><br>如下图：<br><img src="/img/d2.png" alt="引用类型复制"><br><strong>总结</strong><br>基本数据类型赋值过程即可创建新的内存空间，并将变量名指向新创建的内存。引用类型需要通过<code>new</code>关键字创建新的内存空间。直接将存在的引用类型变量复制给新的变量，不会创建新的内存空间，而是将新变量名指向已存在的内存空间。</li>
 </ul>
 
                                             
@@ -220,11 +229,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习资料</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">JS</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分享</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -280,7 +293,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://liudeyin1024.github.io/2018/04/29/学习资料/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://liudeyin1024.github.io/2018/05/26/JS变量复制/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -294,18 +307,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/05/26/JS变量复制/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JS变量复制
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/28/HelloWorld/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HelloWorld</div>
+    <a href="/2018/04/29/学习资料/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">学习资料</div>
       <i class="icon-circle-right"></i>
     </a>
   
