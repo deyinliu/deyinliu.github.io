@@ -18,7 +18,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://liudeyin1024.github.io/img/d1.png">
 <meta property="og:image" content="https://liudeyin1024.github.io/img/d2.png">
-<meta property="og:updated_time" content="2018-05-26T08:35:41.173Z">
+<meta property="og:updated_time" content="2018-05-26T10:26:05.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS变量复制">
 <meta name="twitter:description" content="最近在看李松峰、曹力翻译的《JavaScript高级程序设计（第三版）》。关于JS变量复制我有一些自己的理解。">
@@ -183,7 +183,7 @@
 <p><strong>解释</strong></p>
 <ul>
 <li>变量声明，通过<code>new</code>关键字，开辟新的内存空间，并把变量名指向该内存空间。</li>
-<li>变量复制，将新的变量名指向上述过程中创建的内存空间。<br><strong><em>即两个变量指向同一内存空间</em></strong><br>如下图：<br><img src="/img/d2.png" alt="引用类型复制"><br><strong>总结</strong><br>基本数据类型赋值过程即可创建新的内存空间，并将变量名指向新创建的内存。引用类型需要通过<code>new</code>关键字创建新的内存空间。直接将存在的引用类型变量复制给新的变量，不会创建新的内存空间，而是将新变量名指向已存在的内存空间。</li>
+<li>变量复制，将新的变量名指向上述过程中创建的内存空间。<br><strong><em>即两个变量指向同一内存空间</em></strong><br>如下图：<br><img src="/img/d2.png" alt="引用类型复制"><br><strong>总结</strong><br>基本数据类型赋值过程即可创建新的内存空间，并将变量名指向新创建的内存。引用类型需要通过<code>new</code>关键字或者<code>obj = {}</code>创建新的内存空间。直接将存在的引用类型变量复制给新的变量，不会创建新的内存空间，而是将新变量名指向已存在的内存空间。</li>
 </ul>
 
                                             
