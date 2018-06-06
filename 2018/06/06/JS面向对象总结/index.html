@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://deyinliu.github.io">
-  <title>Archives: 2018 | Liudyin的博客</title>
+  <title>JS面向对象总结（一） | Liudyin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="暂无可圈可点事迹，是的你没看错，名字故意少写了个字母">
+  <meta name="description" content="JavaScript是一种弱类型语言，并没有类的概念，但江湖有传闻说“万物皆对象”。所以JavaScript就用对象的形式，从逻辑上实现了面向对象编程。">
 <meta name="keywords" content="Python,mxnet,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Liudyin的博客">
-<meta property="og:url" content="https://deyinliu.github.io/archives/2018/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS面向对象总结（一）">
+<meta property="og:url" content="https://deyinliu.github.io/2018/06/06/JS面向对象总结/index.html">
 <meta property="og:site_name" content="Liudyin的博客">
-<meta property="og:description" content="暂无可圈可点事迹，是的你没看错，名字故意少写了个字母">
+<meta property="og:description" content="JavaScript是一种弱类型语言，并没有类的概念，但江湖有传闻说“万物皆对象”。所以JavaScript就用对象的形式，从逻辑上实现了面向对象编程。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-06T08:55:26.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Liudyin的博客">
-<meta name="twitter:description" content="暂无可圈可点事迹，是的你没看错，名字故意少写了个字母">
+<meta name="twitter:title" content="JS面向对象总结（一）">
+<meta name="twitter:description" content="JavaScript是一种弱类型语言，并没有类的概念，但江湖有传闻说“万物皆对象”。所以JavaScript就用对象的形式，从逻辑上实现了面向对象编程。">
   
     <link rel="alternative" href="/atom.xml" title="Liudyin的博客" type="application/atom+xml">
   
@@ -148,196 +149,136 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-                            
-                                
-                                    
-                                        
-                                            
-                                                    
-                                                        <section class="archives-wrap">
-                                                            <div class="archive-year-wrap">
-                                                                <a href="/archives/2018" class="archive-year">
-                                                                    2018
-                                                                </a>
-                                                            </div>
-                                                            <div class="archives">
-                                                                
-                                                                    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/06/JS面向对象总结/" class="archive-article-date">
+            <article id="post-JS面向对象总结" class="article article-type-post " itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      JS面向对象总结（一）
+    </h1>
+  
+
+                    
+                        <a href="/2018/06/06/JS面向对象总结/" class="archive-article-date">
   	<time datetime="2018-06-06T07:57:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
 	  <!-- <a href="#" class="archive-article-date" id="busuanzi_container_site_uv">
 		<time>浏览量<span id="busuanzi_value_site_uv"></span></time>
 	</a> -->
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/06/JS面向对象总结/">JS面向对象总结（一）</a>
-    </h1>
-  
+                            
+                                <a href="#" class="archive-article-date" id="busuanzi_container_site_uv">
+                                    <time>浏览量<span id="busuanzi_value_site_uv"></span></time>
+                                </a>
+            </header>
+            
+                <div class="article-entry" itemprop="articleBody">
+                    
+                                        <p>JavaScript是一种弱类型语言，并没有类的概念，但江湖有传闻说“万物皆对象”。所以JavaScript就用对象的形式，从逻辑上实现了面向对象编程。<br><a id="more"></a></p>
+<h2 id="对象理解"><a href="#对象理解" class="headerlink" title="对象理解"></a>对象理解</h2><p>对于诸如java这种强类型语言来说，对象即为<code>class</code>,但是JavaScript不存在<code>class</code>。如前所述，万物皆对象，因此JavaScript的面向对象实现，采用了<code>Object</code>。</p>
+<h3 id="对象创建"><a href="#对象创建" class="headerlink" title="对象创建"></a>对象创建</h3><p>我们都知道，对象一般都存在<code>属性</code>和<code>方法</code>。那么JavaScript对象也不能免俗，只是实现起来更简单粗暴。如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;&#125;;</span><br><span class="line">myObject.name = <span class="string">"object"</span>;</span><br><span class="line">myObject.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> object = <span class="keyword">new</span> myObject();</span><br><span class="line"><span class="built_in">console</span>.log(object.sayName());<span class="comment">//输出this.name的值为object</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码就定义了<code>myObject</code>对象，同时给对象定义了<code>name</code>属性和<code>sayName</code>方法。</p>
+<p>但是上述代码创建的对象存在一些问题。首先，只是在逻辑上实现了面向对象，但是并不正存在所谓的<code>myObject</code>类型，即<code>instanceof(object)!=&quot;myObject&quot;</code>返回值为<code>false</code>；其次，类中的<code>sayName</code>方法在每次调用的时候都会重新创建，此方法定义等价于<code>myObject.sayName = new Function()</code>。当使用<code>new</code>关键字时，意味着每次调用该方法，就会重新开辟内存，没有实现类方法的共享。</p>
+<p>解决第一个问题只需要通过如下方式创建对象：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newObject</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">"new object"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> newobject = <span class="keyword">new</span> newObject();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">instanceof</span>(newobject));<span class="comment">//输出newObject</span></span><br></pre></td></tr></table></figure></p>
+<p>解决第二个问题，则需要使用对象的<code>原型</code>属性。对象的原型属性，可以被所有实例共享。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newObject</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    newObject.prototype.age = age;</span><br><span class="line">    newObject.prototype.sayInfo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name+<span class="string">"的年龄是"</span>+<span class="keyword">this</span>.age;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> newobject1 = <span class="keyword">new</span> newObject(<span class="string">"new object1"</span>,<span class="number">23</span>);</span><br><span class="line"><span class="keyword">var</span> newobject2 = <span class="keyword">new</span> newObject(<span class="string">"new object2"</span>,<span class="number">33</span>);</span><br><span class="line"><span class="built_in">console</span>.log(newobject1.sayInfo());<span class="comment">//new object1的年龄是33</span></span><br><span class="line"><span class="built_in">console</span>.log(newobject2.sayInfo());<span class="comment">//new object2的年龄是33</span></span><br></pre></td></tr></table></figure></p>
+<p>你没看错，上述定义了对象<code>newObject</code>的两个实例，其中定义时输入了不同的<code>age</code>，但是，调用<code>sayInfo</code>方法时，输出年龄相同。这是因为<code>age</code>属性是原型属性，即为所有实例共享。当声明<code>newobject1</code>时，<code>age</code>的值为<code>23</code>，因为<code>age</code>属性所有实例共享，所以声明<code>newobject1</code>时，新传入的<code>age</code>值会覆盖原有值。</p>
+<p>通过如上方法创建类，我们发现可以通过<code>原型</code>实现方法的共享，同时实例的特有属性值，应避免通过原型进行定义。</p>
+<h3 id="属性类型"><a href="#属性类型" class="headerlink" title="属性类型"></a>属性类型</h3><p>通过JavaScript的对象实现的类，为了保证类的完整性和安全性，需要对类的属性类型进行控制。类的属性常用类型有以下三种，分别为：</p>
+<ul>
+<li><strong>Configurable</strong>：表示能否对属性进行修改（<em>注：删除也是修改</em>）</li>
+<li><strong>Enumerable</strong>：表示能否通过<code>for-in</code>循环返回属性</li>
+<li><strong>Writable</strong>：表示能否修改类的值</li>
+</ul>
+<p>属性定义常用方法如上述创建类一样，可直接定义。直接定义的属性上述类型值均为<code>true</code>。如果需要对属性值进行特殊限定，可使用<code>Object.defineProperty()</code>进行限定,通过该方法进行限定之后，上述类型的默认值为<code>false</code>。该方法接受三个参数，第一个参数为类名，第二个参数为属性名，第三个参数为属性类型。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.definePropety(newObject,<span class="string">"address"</span>,&#123;</span><br><span class="line">    configurable:<span class="literal">true</span>,</span><br><span class="line">    value:<span class="string">"china"</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>JavaScript面向对象实现起来比较简单，但是细节问题很多，要想能熟练应用，需要对原型链相关知识点进行学习，原型链时实现JavaScript面向对象的重要特性，后续的继承实现全部依靠原型链完成。</p>
 
-        <div class="article-info info-on-right">
-          
-          
+                                            
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-                                                                        
-                                    
-                                        
-                                                                    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/26/JS变量复制/" class="archive-article-date">
-  	<time datetime="2018-05-26T03:02:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-26</time>
-	  <!-- <a href="#" class="archive-article-date" id="busuanzi_container_site_uv">
-		<time>浏览量<span id="busuanzi_value_site_uv"></span></time>
-	</a> -->
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/26/JS变量复制/">JS变量复制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">JS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-                                                                        
-                                    
-                                        
-                                                                    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/29/学习资料/" class="archive-article-date">
-  	<time datetime="2018-04-29T07:20:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-29</time>
-	  <!-- <a href="#" class="archive-article-date" id="busuanzi_container_site_uv">
-		<time>浏览量<span id="busuanzi_value_site_uv"></span></time>
-	</a> -->
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/29/学习资料/">学习资料</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习资料</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-                                                                        
-                                    
-                                        
-                                                                    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/28/HelloWorld/" class="archive-article-date">
-  	<time datetime="2018-04-28T03:14:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-28</time>
-	  <!-- <a href="#" class="archive-article-date" id="busuanzi_container_site_uv">
-		<time>浏览量<span id="busuanzi_value_site_uv"></span></time>
-	</a> -->
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/28/HelloWorld/">HelloWorld</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">flag</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-                                                                        
-                                                                            
+                                                
+                                                    <div class="page-reward">
+                                                        <a href="javascript:;" class="page-reward-btn tooltip-top">
+                                                            <div class="tooltip tooltip-east">
+                                                                <span class="tooltip-item">
+              赞
+            </span>
+                                                                <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢赞赏，为你歌唱<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
                                                             </div>
-                                                        </section>
-                                                        
-
                                                             
-
+                                                                
+                                                                    <div class="reward-box-item">
+                                                                        <img class="reward-img" src="/img/wechat.jpeg">
+                                                                        <span class="reward-type">微信</span>
+                                                                    </div>
                                                                     
+                                                    </div>
+                                                    </span>
+                                                    </span>
+                                                    </span>
+                </div>
+                </a>
+    </div>
+    
+        </div>
+        <div class="article-info article-info-index">
+            
+                    
+                        
+
+                            
+
+                                    
+                                                <div class="clearfix"></div>
+        </div>
+        </div>
+</article>
+
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/26/JS变量复制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JS变量复制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+        
+            <aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+                
+                    
+
+                                
+
+                                            
+
+                                                        
+                                                                
           </div>
         </div>
       </div>
@@ -362,8 +303,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
