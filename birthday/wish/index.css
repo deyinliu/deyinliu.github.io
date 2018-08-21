@@ -1,0 +1,65 @@
+*{
+	margin: 0px;
+	padding: 0px;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+body{
+	overflow: hidden;
+	font-family: 'Microsoft Yahei';
+}
+
+
+
+#myCanvas{
+	position: absolute;
+	z-index: -1;
+}
+
+#wordBackground{
+	background-color: #fff;
+	opacity: 0.2;
+	position: absolute;
+	z-index: 0;
+	width: 70%;
+	height: 150px;
+
+	border: 2px solid #ff9ea4;
+	border-radius: 14px;
+	
+}
+#word{
+	font-size: 30px;
+	text-align: center;
+	color: white;
+	position: absolute;
+	z-index: 1;
+
+	width: 70%;
+	line-height: 45px;
+}
+#wish{
+	position: absolute;
+	z-index: 1;
+	width: 70%;
+}
+#wish>*{
+	font-size: 35px;
+	text-align: center;
+	color: white;
+	float: left;
+
+	width: 16.6%;
+}
+#attention,#timer{
+	font-size: 30px;
+	text-align: center;
+	color: white;
+	position: absolute;
+	z-index: 1;
+	width: 70%;
+}
+
