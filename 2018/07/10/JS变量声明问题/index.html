@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://deyinliu.github.io">
-  <title>HelloWorld | Liudyin的博客</title>
+  <title>JS变量声明问题 | Liudyin的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一次搭建github博客">
-<meta name="keywords" content="随笔,flag">
+  <meta name="description" content="ES5中声明变量的关键字仅有var,无块级作用域概念，ES6中新增变量声明关键字let和const可以实现声明局部变量和静态变量，因此出现了块级作用域概念。">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HelloWorld">
-<meta property="og:url" content="https://deyinliu.github.io/2018/04/28/HelloWorld/index.html">
+<meta property="og:title" content="JS变量声明问题">
+<meta property="og:url" content="https://deyinliu.github.io/2018/07/10/JS变量声明问题/index.html">
 <meta property="og:site_name" content="Liudyin的博客">
-<meta property="og:description" content="第一次搭建github博客">
+<meta property="og:description" content="ES5中声明变量的关键字仅有var,无块级作用域概念，ES6中新增变量声明关键字let和const可以实现声明局部变量和静态变量，因此出现了块级作用域概念。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-29T08:12:46.229Z">
+<meta property="og:updated_time" content="2018-11-10T12:13:43.988Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HelloWorld">
-<meta name="twitter:description" content="第一次搭建github博客">
+<meta name="twitter:title" content="JS变量声明问题">
+<meta name="twitter:description" content="ES5中声明变量的关键字仅有var,无块级作用域概念，ES6中新增变量声明关键字let和const可以实现声明局部变量和静态变量，因此出现了块级作用域概念。">
   
     <link rel="alternative" href="/atom.xml" title="Liudyin的博客" type="application/atom+xml">
   
@@ -151,20 +151,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-HelloWorld" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JS变量声明问题" class="article article-type-post " itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
   
     <h1 class="article-title" itemprop="name">
-      HelloWorld
+      JS变量声明问题
     </h1>
   
 
                     
-                        <a href="/2018/04/28/HelloWorld/" class="archive-article-date">
-  	<time datetime="2018-04-28T03:14:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-28</time>
+                        <a href="/2018/07/10/JS变量声明问题/" class="archive-article-date">
+  	<time datetime="2018-07-10T11:00:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
 	  
 </a>
                             
@@ -175,10 +175,15 @@
             
                 <div class="article-entry" itemprop="articleBody">
                     
-                                        <p>第一次搭建github博客<br><a id="more"></a></p>
-<p>立此flag，坚持学习，坚持做笔记～</p>
-<p><a href="https://hexo.io/" target="_blank" rel="noopener">博客框架</a></p>
-<p><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">主题模版</a></p>
+                                        <p>ES5中声明变量的关键字仅有<code>var</code>,无块级作用域概念，ES6中新增变量声明关键字<code>let</code>和<code>const</code>可以实现声明局部变量和静态变量，因此出现了块级作用域概念。<br><a id="more"></a></p>
+<h2 id="ES5中变量声明问题"><a href="#ES5中变量声明问题" class="headerlink" title="ES5中变量声明问题"></a>ES5中变量声明问题</h2><p>ES5中作用域可分为全局作用域和函数作用域。在全局执行环境中声明的变量即为全局变量，在全局环境中有效。在函数体内部通过<code>var</code>声明的变量为局部变量，仅在函数体内部有效。函数体外部不能<strong>直接</strong>（通过闭包方式可以访问函数体内部变量）访问。这一点和诸如C、Java之类静态编程语言类似。另外子执行环境中可以直接访问父执行环境中变量，反之则不行。</p>
+<h3 id="var变量提升"><a href="#var变量提升" class="headerlink" title="var变量提升"></a>var变量提升</h3><p>var关键字声明变量存在变量提升问题。即在变量作用域内声明变量时，变量声明操作会被提升到最顶部，变量调用不受声明语句在其作用域内出现的先后顺序影响。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> condintion = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(condition)&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="string">"Hello World"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"haha"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line">func();</span><br></pre></td></tr></table></figure>
+<p>执行上述代码，最终输出<code>haha</code>和<code>undefined</code>。这一点和C这类静态语言大不相同，如果在C中，这段代码会报错，因为函数内最后输出<code>a</code>在<code>condition</code>为<code>true</code>时才会被创建。但是在<code>JavaScript</code>中利用<code>var</code>声明变量，会造成造成变量提升。上述代码相当于在函数体最顶端声明通过<code>var a</code>声明了变量<code>a</code>,当<code>condition</code>值为<code>true</code>时给变量<code>a</code>赋值。所以最后一句输出没有报错，由于<code>a</code>仅声明，未赋值，所以最后会输出<code>ubdefined</code>。</p>
+<h3 id="var声明变量覆盖宿主全局变量"><a href="#var声明变量覆盖宿主全局变量" class="headerlink" title="var声明变量覆盖宿主全局变量"></a>var声明变量覆盖宿主全局变量</h3><p><code>JavaScript</code>需要在诸如<code>node.js</code>、浏览器这类宿主环境中执行。这些宿主环境自带一些全局变量，利用var声明名称和宿主环境中的全局变量名一样的变量，则新声明的变量会覆盖原有全局变量。如在浏览器中的全局变量都存放在对象<code>window</code>中，例如正常情况下通过<code>window.innerHeight</code>可以返回浏览器可视窗口的高度。但是如果在浏览器环境中，声明<code>var innerHeight = &quot;Hello&quot;</code>，则会覆盖<code>window.innerHeight</code>的值，最终会返回<code>Hello</code>。</p>
+<h2 id="ES6中变量声明问题"><a href="#ES6中变量声明问题" class="headerlink" title="ES6中变量声明问题"></a>ES6中变量声明问题</h2><p>ES6中增加了变量声明关键字<code>let</code>和<code>const</code>，这两个关键字可以声明，仅在块级作用域内部访问的变量。这两个关键字不能重复声明变量，即如果变量在之前已经声明过，再用这两个关键字重复声明会报错。同时这两个关键字声明变量<strong>不存在</strong>变量提升，即在变量声明之前，调用变量会报错。其中<code>const</code>声明静态变量，需要在<strong>声明的同时赋值</strong>。如下代码展示了<code>let</code>和<code>const</code>的相关要点：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">if</span>(a)&#123;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">4</span></span><br><span class="line">    <span class="keyword">let</span> c = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">const</span> d = <span class="number">6</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(b);<span class="comment">//输出4</span></span><br><span class="line"><span class="built_in">console</span>.log(c);<span class="comment">//报错</span></span><br><span class="line"><span class="built_in">console</span>.log(d);<span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
+<p><code>let</code>和<code>const</code>的特性使得<code>JavaScript</code>的作用域增加了<strong>块级作用域</strong>。</p>
 
                                             
 
@@ -223,11 +228,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">flag</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
@@ -246,15 +247,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/04/29/学习资料/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          学习资料
-        
-      </div>
-    </a>
   
+    <a href="/2018/06/06/JS面向对象总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JS面向对象总结（一）</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
