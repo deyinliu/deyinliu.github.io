@@ -1,0 +1,115 @@
+{
+  "experimentTypes": [
+    "临床随机对照试验",
+    "麻醉方案对比研究",
+    "术后镇痛研究",
+    "麻醉药物安全性研究",
+    "围术期并发症研究"
+  ],
+  "dataTemplates": {
+    "术后认知功能评估": {
+      "id": "TPL001",
+      "name": "术后认知功能评估表",
+      "description": "用于评估患者术后认知功能状态",
+      "fields": [
+        {
+          "key": "mmse_score",
+          "name": "MMSE评分",
+          "type": "number",
+          "required": true,
+          "unit": "分",
+          "description": "简易精神状态检查量表得分"
+        },
+        {
+          "key": "orientation",
+          "name": "定向力",
+          "type": "enum",
+          "required": true,
+          "options": [
+            "正常",
+            "轻度障碍",
+            "中度障碍",
+            "重度障碍"
+          ]
+        },
+        {
+          "key": "memory",
+          "name": "记忆力",
+          "type": "enum",
+          "required": true,
+          "options": [
+            "正常",
+            "轻度受损",
+            "中度受损",
+            "重度受损"
+          ]
+        },
+        {
+          "key": "attention",
+          "name": "注意力",
+          "type": "number",
+          "required": true,
+          "unit": "分",
+          "description": "注意力测试得分"
+        }
+      ]
+    },
+    "围术期生命体征": {
+      "id": "TPL002",
+      "name": "围术期生命体征记录",
+      "description": "用于记录患者围术期重要生命体征",
+      "fields": [
+        {
+          "key": "blood_pressure",
+          "name": "血压",
+          "type": "string",
+          "required": true,
+          "unit": "mmHg"
+        },
+        {
+          "key": "heart_rate",
+          "name": "心率",
+          "type": "number",
+          "required": true,
+          "unit": "次/分"
+        },
+        {
+          "key": "spo2",
+          "name": "血氧饱和度",
+          "type": "number",
+          "required": true,
+          "unit": "%"
+        },
+        {
+          "key": "temperature",
+          "name": "体温",
+          "type": "number",
+          "required": true,
+          "unit": "℃"
+        }
+      ]
+    }
+  },
+  "experiments": [
+    {
+      "id": "ANE2024001",
+      "name": "丙泊酚与七氟醚麻醉对老年患者术后认知功能的影响研究",
+      "type": "临床随机对照试验",
+      "owner": "张医生",
+      "period": "2024-01-15 至 2024-07-15",
+      "sampleSize": 200,
+      "progress": "已入组80例",
+      "status": "进行中"
+    },
+    {
+      "id": "ANE2024002",
+      "name": "超声引导下臂丛神经阻滞效果评估研究",
+      "type": "麻醉方案对比研究",
+      "owner": "李医生",
+      "period": "2024-01-10 至 2024-06-10",
+      "sampleSize": 150,
+      "progress": "已完成",
+      "status": "已完成"
+    }
+  ]
+}

@@ -1,44 +1,65 @@
 "use client";
-import { Table, Card, Button, Space, Tag, message } from 'antd';
+import { Table, Card, Button, Space, Tag } from 'antd';
 import { PlusOutlined, ExperimentOutlined } from '@ant-design/icons';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import mockData from '../../mock/experimentData.json';
+import { useRouteTransition } from '@/app/contexts/RouteTransitionContext';
+import { useRouteNavigate } from '@/app/hooks/useRouteNavigate';
 
 const ExperimentManagementPage = () => {
+  const { navigate } = useRouteNavigate();
   const [loading] = useState(false);
+  const { experimentTypes, experiments, dataTemplates } = mockData;
 
   const columns = [
     {
       title: '实验编号',
       dataIndex: 'id',
       key: 'id',
-      width: 100,
+      width: 120,
+      fixed: 'left',
     },
     {
       title: '实验名称',
       dataIndex: 'name',
       key: 'name',
-      width: 200,
+      width: 300,
+      ellipsis: true,
+      fixed: 'left',
     },
     {
       title: '实验类型',
       dataIndex: 'type',
       key: 'type',
-      width: 120,
-      render: (type: string) => (
-        <Tag color={type === '临床试验' ? 'blue' : 'green'}>{type}</Tag>
-      ),
+      width: 160,
+      render: (type: string) => <Tag color="blue">{type}</Tag>,
     },
     {
-      title: '负责人',
+      title: '主要研究者',
       dataIndex: 'owner',
       key: 'owner',
       width: 120,
     },
     {
-      title: '开始时间',
-      dataIndex: 'startDate',
-      key: 'startDate',
-      width: 150,
+      title: '实验周期',
+      dataIndex: 'period',
+      key: 'period',
+      width: 200,
+      ellipsis: true,
+    },
+    {
+      title: '目标样本量',
+      dataIndex: 'sampleSize',
+      key: 'sampleSize',
+      width: 100,
+    },
+    {
+      title: '当前进度',
+      dataIndex: 'progress',
+      key: 'progress',
+      width: 120,
+      ellipsis: true,
     },
     {
       title: '状态',
@@ -54,67 +75,56 @@ const ExperimentManagementPage = () => {
     {
       title: '操作',
       key: 'action',
+      fixed: 'right',
+      width: 200,
       render: () => (
         <Space size="middle">
-          <Button type="link">查看</Button>
+          <Button type="link">查看详情</Button>
+          <Button type="link">数据采集</Button>
           <Button type="link">编辑</Button>
         </Space>
       ),
     },
   ];
 
-  const mockData = [
-    {
-      id: 'EXP001',
-      name: '新型药物临床试验A阶段',
-      type: '临床试验',
-      owner: '张医生',
-      startDate: '2024-01-15',
-      status: '进行中',
-    },
-    {
-      id: 'EXP002',
-      name: '医疗设备测试实验',
-      type: '设备测试',
-      owner: '李工程师',
-      startDate: '2024-01-10',
-      status: '已完成',
-    },
-  ];
-
   const handleNewExperiment = () => {
-    message.info('新建实验功能开发中...');
+    navigate('/experiment-management/create/');
   };
 
   return (
-    <div>
-      <Card
-        title={
-          <Space>
-            <ExperimentOutlined />
-            实验管理
-          </Space>
-        }
-        extra={
-          <Button type="primary" icon={<PlusOutlined />} onClick={handleNewExperiment}>
-            新建实验
-          </Button>
-        }
-      >
-        <Table
-          columns={columns}
-          dataSource={mockData}
-          loading={loading}
-          rowKey="id"
-          pagination={{
-            total: mockData.length,
-            pageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-          }}
-        />
-      </Card>
-    </div>
+    <Card
+      title={
+        <Space>
+          <ExperimentOutlined />
+          研究实验管理
+        </Space>
+      }
+      extra={
+        <Button type="primary" icon={<PlusOutlined />} onClick={handleNewExperiment}>
+          新建实验
+        </Button>
+      }
+      bodyStyle={{ padding: '12px 24px' }}
+    >
+      <Table
+        columns={columns}
+        dataSource={experiments}
+        loading={loading}
+        rowKey="id"
+        scroll={{ x: 1500 }}
+        pagination={{
+          total: experiments.length,
+          pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total) => `共 ${total} 条记录`,
+        }}
+        style={{
+          marginTop: 8,
+          minHeight: 'calc(100vh - 280px)',
+        }}
+      />
+    </Card>
   );
 };
 

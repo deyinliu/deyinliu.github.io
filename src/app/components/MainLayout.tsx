@@ -1,9 +1,10 @@
 "use client";
 import { Layout, Menu, Button } from 'antd';
-import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { ExperimentOutlined, DatabaseOutlined, LineChartOutlined, LogoutOutlined } from '@ant-design/icons';
 import { auth } from '../utils/auth';
+import { RouteTransitionProvider, useRouteTransition } from '../contexts/RouteTransitionContext';
+import { useRouteNavigate } from '../hooks/useRouteNavigate';
 
 const { Header, Content, Sider } = Layout;
 
@@ -25,29 +26,19 @@ const menuItems = [
   }
 ];
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function MainLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter();
-  const [pageLoading, setPageLoading] = useState(false);
+  const { navigate, replace } = useRouteNavigate();
+  const { isTransitioning } = useRouteTransition();
 
   const handleMenuClick = (path: string) => {
     if (path === pathname) return;
-    setPageLoading(true);
-    router.push(path);
-    // DOM 更新后恢复状态
-    requestAnimationFrame(() => {
-      setTimeout(() => setPageLoading(false), 300);
-    });
+    navigate(path);
   };
 
   const handleLogout = () => {
     auth.logout();
-    // 使用 replace 而不是 push，避免历史记录
-    router.replace('/login/');
+    replace('/login/');
   };
 
   return (
@@ -109,21 +100,27 @@ export default function MainLayout({
           </Button>
         </Header>
         <Content style={{ margin: '24px 16px', overflow: 'initial' }}>
-
           <div style={{
             padding: 24,
             background: '#fff',
             borderRadius: '8px',
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
             minHeight: '500px',
-            transition: 'all 0.3s ease',
-            opacity: pageLoading ? 0.6 : 1,
+            transition: 'opacity 0.3s ease',
+            opacity: isTransitioning ? 0.6 : 1,
           }}>
             {children}
           </div>
-
         </Content>
       </Layout>
     </Layout>
+  );
+}
+
+export default function MainLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <RouteTransitionProvider>
+      <MainLayoutContent>{children}</MainLayoutContent>
+    </RouteTransitionProvider>
   );
 }
