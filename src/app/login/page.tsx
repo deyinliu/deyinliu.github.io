@@ -75,6 +75,7 @@ export default function LoginPage() {
             <Input
               prefix={<LockOutlined />}
               type="text"
+              // @ts-expect-error WebkitTextSecurity 为 WebKit 私有属性
               style={{ WebkitTextSecurity: 'disc' }}
               placeholder="密码"
             />
