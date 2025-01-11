@@ -18,7 +18,7 @@ export function RouteTransitionProvider({ children }: { children: React.ReactNod
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsTransitioning(true);
+    // setIsTransitioning(true);
     const timer = setTimeout(() => {
       setIsTransitioning(false);
     }, 300);

@@ -43,7 +43,14 @@ a {
 
 /* 数据分析模块样式 */
 .analysis-card {
-  background: #f5f7fa;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.analysis-tool .ant-card {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
 }
 
 .analysis-card .ant-card-body {
@@ -51,9 +58,9 @@ a {
 }
 
 .analysis-tabs .ant-tabs-nav {
-  margin-bottom: 16px;
+  margin-bottom: 0px;
   background: #fff;
-  padding: 8px 8px 0;
+  padding: 0;
   border-radius: 8px;
 }
 
@@ -159,6 +166,40 @@ a {
   transition: opacity 300ms, transform 300ms;
 }
 
+/* 路由过渡动画 */
+.page-transition-in {
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-transition-out {
+  animation: fadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* 确保内容区域有正确的transform-origin */
+.ant-layout-content {
+  transform-origin: center top;
+}
+
 /* Spin组件自定义样式 */
 .ant-spin-nested-loading {
   transition: all 0.3s ease;
@@ -205,4 +246,54 @@ a {
   to {
     opacity: 1;
   }
+}
+
+/* 新的 loading 动画样式 */
+.loading-animation {
+  width: 240px;
+  height: 240px;
+  position: relative;
+}
+
+.wave-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: rgba(66, 133, 244, 0.9);
+  border-radius: 50%;
+  animation: wave-expand 2.5s ease-out infinite;
+}
+
+.wave-circle:nth-child(2) {
+  animation-delay: -0.8s;
+  background: rgba(52, 168, 83, 0.9);
+}
+
+.wave-circle:nth-child(3) {
+  animation-delay: -1.6s;
+  background: rgba(251, 188, 5, 0.9);
+}
+
+@keyframes wave-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+  }
+}
+
+#global-loading {
+  background: rgb(255, 255, 255);
 }

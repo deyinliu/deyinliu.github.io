@@ -1,7 +1,22 @@
 "use client";
 import { Tabs, Card } from 'antd';
-import { BarChartOutlined, LineChartOutlined, DotChartOutlined } from '@ant-design/icons';
-import RegressionTool from "../../component/regressionTool";
+import {
+  BarChartOutlined,
+  LineChartOutlined,
+  AreaChartOutlined,
+  FundOutlined,
+  RadarChartOutlined,
+  PieChartOutlined,
+  TableOutlined,
+  NodeIndexOutlined
+} from '@ant-design/icons';
+import RegressionTool from "./components/RegressionTool";
+import TTestTool from "./components/TTestTool";
+import AnovaTool from "./components/AnovaTool";
+import ChiSquareTool from "./components/ChiSquareTool";
+import WilcoxonTool from "./components/WilcoxonTool";
+import FisherTool from "./components/FisherTool";
+import McnemarTool from "./components/McnemarTool";
 
 const DataAnalysisPage = () => {
   const items = [
@@ -16,24 +31,64 @@ const DataAnalysisPage = () => {
       children: <RegressionTool />
     },
     {
-      key: 'correlation',
+      key: 'ttest',
       label: (
         <span>
-          <DotChartOutlined />
-          相关性分析
+          <AreaChartOutlined />
+          T检验
         </span>
       ),
-      children: <div>相关性分析模块开发中...</div>
+      children: <TTestTool />
     },
     {
-      key: 'descriptive',
+      key: 'anova',
       label: (
         <span>
-          <BarChartOutlined />
-          描述性统计
+          <FundOutlined />
+          方差分析
         </span>
       ),
-      children: <div>描述性统计模块开发中...</div>
+      children: <AnovaTool />
+    },
+    {
+      key: 'wilcoxon',
+      label: (
+        <span>
+          <NodeIndexOutlined />
+          秩和检验
+        </span>
+      ),
+      children: <WilcoxonTool />
+    },
+    {
+      key: 'chisquare',
+      label: (
+        <span>
+          <PieChartOutlined />
+          卡方检验
+        </span>
+      ),
+      children: <ChiSquareTool />
+    },
+    {
+      key: 'fisher',
+      label: (
+        <span>
+          <TableOutlined />
+          Fisher精确检验
+        </span>
+      ),
+      children: <FisherTool />
+    },
+    {
+      key: 'mcnemar',
+      label: (
+        <span>
+          <RadarChartOutlined />
+          配对卡方检验
+        </span>
+      ),
+      children: <McnemarTool />
     }
   ];
 
@@ -45,7 +100,6 @@ const DataAnalysisPage = () => {
           数据分析工具集
         </span>
       }
-      bordered={false}
       className="analysis-card"
     >
       <Tabs

@@ -1,75 +1,69 @@
+"use client";
 import React, { useState } from 'react';
-import { Form, Input, Button, Space, Select, Switch, Card, Divider } from 'antd';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
-import type { DataTemplate, TemplateField } from '@/types/experiment';
+import { Form, Input, Button, Space, Card, Divider, Tooltip, Tag, Modal, Checkbox } from 'antd';
+import { PlusOutlined, DeleteOutlined, EditOutlined, EyeOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import type { TemplateField } from '@/types/experiment';
+import FieldConfigDrawer from './FieldConfigDrawer';
+import FieldPreview from './FieldPreview';
+import { useExperimentFormStore } from '@/stores/experimentFormStore'; // 添加这行，修复 setDataTemplate undefined 错误
 
-interface TemplateDesignerProps {
-  onSave: (template: DataTemplate) => void;
-  initialData?: DataTemplate;
-}
 
-const TemplateDesigner: React.FC<TemplateDesignerProps> = ({ onSave, initialData }) => {
+const TemplateDesigner: React.FC = () => {
   const [form] = Form.useForm();
-  const [fields, setFields] = useState<TemplateField[]>(initialData?.fields || []);
+  const [editingField, setEditingField] = useState<TemplateField | null>(null);
+  const [previewField, setPreviewField] = useState<TemplateField | null>(null);
+  const [isPublic, setIsPublic] = useState(false);
+  const { dataTemplate = {}, setDataTemplate } = useExperimentFormStore();
+  const { fields = [], name, description } = dataTemplate;
 
   const handleAddField = () => {
     const newField: TemplateField = {
-      id: `field_${fields.length}`,
+      id: `field_${fields?.length ?? 0}`,
       label: '',
       type: 'text',
       required: false,
     };
-    setFields([...fields, newField]);
+    setDataTemplate({ ...dataTemplate, fields: [...fields, newField] });
+    form.setFieldValue(`field_${fields.length}_label`, '未命名字段');
+    form.setFieldValue(`field_${fields.length}_type`, 'text');
+    form.setFieldValue(`field_${fields.length}_required`, false);
   };
 
   const handleRemoveField = (id: string) => {
-    setFields(fields.filter((field) => field.id !== id));
+    const newField = (fields.filter((field) => field.id !== id));
+    setDataTemplate({ ...dataTemplate, fields: [...newField] });
   };
 
-  const handleFieldTypeChange = (id: string, value: TemplateField['type']) => {
-    setFields(
-      fields.map((field) =>
-        field.id === id ? { ...field, type: value } : field
-      )
-    );
+  const handleEditField = (field: TemplateField) => {
+    setEditingField(field);
   };
 
-  const handleDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-    const reorderedFields = Array.from(fields);
-    const [removed] = reorderedFields.splice(result.source.index, 1);
-    reorderedFields.splice(result.destination.index, 0, removed);
-    setFields(reorderedFields);
+  const handlePreviewField = (field: TemplateField) => {
+    setPreviewField(field);
   };
 
-  const handleSubmit = async (values: any) => {
-    try {
-      const fieldsData = fields.map((field) => ({
-        ...field,
-        label: values[`field_${field.id}_label`],
-        required: values[`field_${field.id}_required`] || false,
-        type: values[`field_${field.id}_type`] || 'text',
-      }));
-
-      const template: DataTemplate = {
-        id: initialData?.id || `template_${Date.now()}`,
-        name: values.name,
-        description: values.description,
-        isPublic: false,
-        createdBy: 'current_user', // 这里应该从用户上下文中获取
-        createdAt: new Date().toISOString(),
-        fields: fieldsData,
-      };
-
-      onSave(template);
-    } catch (error) {
-      console.error('Template creation error:', error);
-    }
+  const handleValuesChange = (changedValues: any) => {
+    setDataTemplate({ ...dataTemplate, ...changedValues });
+  }
+  const handleFieldSave = (updatedField: TemplateField) => {
+    const newField = (fields.map(field =>
+      field.id === updatedField.id ? updatedField : field
+    ));
+    setDataTemplate({ ...dataTemplate, fields: [...newField] });
+    setEditingField(null);
   };
 
-  return (
-    <Form form={form} layout="vertical" onFinish={handleSubmit}>
+  return (<>
+    <Form
+      form={form}
+      layout="vertical"
+      initialValues={{
+        name: name,
+        description: description,
+      }}
+      onValuesChange={handleValuesChange}
+    >
+
       <Form.Item
         name="name"
         label="模板名称"
@@ -84,78 +78,83 @@ const TemplateDesigner: React.FC<TemplateDesignerProps> = ({ onSave, initialData
 
       <Divider>字段配置</Divider>
 
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="fields">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {fields.map((field, index) => (
-                <Draggable key={field.id} draggableId={field.id} index={index}>
-                  {(provided) => (
-                    <Card
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      style={{
-                        marginBottom: 16,
-                        ...provided.draggableProps.style,
-                      }}
-                    >
-                      <div {...provided.dragHandleProps}>
-                        <Space align="baseline" style={{ width: '100%' }}>
-                          <Form.Item
-                            name={`field_${field.id}_label`}
-                            rules={[{ required: true, message: '请输入字段名称' }]}
-                          >
-                            <Input placeholder="字段名称" />
-                          </Form.Item>
-
-                          <Form.Item name={`field_${field.id}_type`}>
-                            <Select
-                              style={{ width: 120 }}
-                              onChange={(value) => handleFieldTypeChange(field.id, value)}
-                              options={[
-                                { label: '文本', value: 'text' },
-                                { label: '数字', value: 'number' },
-                                { label: '单选', value: 'radio' },
-                                { label: '多选', value: 'checkbox' },
-                                { label: '日期', value: 'date' },
-                              ]}
-                            />
-                          </Form.Item>
-
-                          <Form.Item name={`field_${field.id}_required`} valuePropName="checked">
-                            <Switch checkedChildren="必填" unCheckedChildren="选填" />
-                          </Form.Item>
-
-                          <Button
-                            type="text"
-                            danger
-                            icon={<DeleteOutlined />}
-                            onClick={() => handleRemoveField(field.id)}
-                          />
-                        </Space>
-                      </div>
-                    </Card>
+      <div>
+        {fields?.map((field) => (
+          <Card
+            key={field.id}
+            style={{ marginBottom: 16 }}
+          >
+            <Space align="baseline" style={{ width: '100%', justifyContent: 'space-between' }}>
+              <div style={{ flex: 1 }}>
+                <h4>{field.label || '未命名字段'}</h4>
+                <Space size={8}>
+                  <Tag color="blue">{field.type}</Tag>
+                  {field.required && <Tag color="red">必填</Tag>}
+                  {field.description && (
+                    <Tooltip title={field.description}>
+                      <InfoCircleOutlined />
+                    </Tooltip>
                   )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+                </Space>
+              </div>
+              <Space>
+                <Button
+                  type="text"
+                  icon={<EyeOutlined />}
+                  onClick={() => handlePreviewField(field)}
+                />
+                <Button
+                  type="text"
+                  icon={<EditOutlined />}
+                  onClick={() => handleEditField(field)}
+                />
+                <Button
+                  type="text"
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={() => handleRemoveField(field.id)}
+                />
+              </Space>
+            </Space>
+          </Card>
+        ))}
+      </div>
 
       <Button type="dashed" onClick={handleAddField} block icon={<PlusOutlined />}>
         添加字段
       </Button>
 
       <Form.Item style={{ marginTop: 24 }}>
-        <Space>
-          <Button type="primary" htmlType="submit">
-            保存模板
-          </Button>
-        </Space>
+        <Checkbox
+          checked={isPublic}
+          onChange={(e) => setIsPublic(e.target.checked)}
+        >
+          保存为公共模板
+        </Checkbox>
+        <div style={{ color: '#666', fontSize: 12, marginTop: 4 }}>
+          选中后将在创建实验时自动保存至公共模板库
+        </div>
       </Form.Item>
+
+
     </Form>
+    <FieldConfigDrawer
+      open={!!editingField}
+      field={editingField}
+      onClose={() => setEditingField(null)}
+      onSave={handleFieldSave}
+    />
+
+    <Modal
+      title="字段预览"
+      open={!!previewField}
+      onCancel={() => setPreviewField(null)}
+      footer={null}
+    >
+      <FieldPreview field={previewField!} />
+    </Modal>
+  </>
+
   );
 };
 

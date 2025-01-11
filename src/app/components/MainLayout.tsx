@@ -106,9 +106,10 @@ function MainLayoutContent({ children }: { children: React.ReactNode }) {
             borderRadius: '8px',
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
             minHeight: '500px',
-            transition: 'opacity 0.3s ease',
-            opacity: isTransitioning ? 0.6 : 1,
-          }}>
+            willChange: 'opacity',
+          }}
+            className={isTransitioning ? 'page-transition-out' : 'page-transition-in'}
+          >
             {children}
           </div>
         </Content>

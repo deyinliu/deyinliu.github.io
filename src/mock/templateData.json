@@ -1,0 +1,427 @@
+{
+  "templates": [
+    {
+      "id": "template_001",
+      "name": "标准生命体征监测模板",
+      "description": "用于记录患者基础生命体征的标准化模板，包含体温、血压、心率等核心指标",
+      "isPublic": true,
+      "createdBy": "system",
+      "createdAt": "2024-03-01",
+      "fields": [
+        {
+          "id": "vital_001",
+          "label": "体温",
+          "type": "number",
+          "required": true,
+          "description": "腋下测量，单位：℃",
+          "validation": {
+            "min": 35,
+            "max": 42,
+            "precision": 1
+          },
+          "placeholder": "请输入体温数值"
+        },
+        {
+          "id": "vital_002",
+          "label": "血压",
+          "type": "text",
+          "required": true,
+          "description": "收缩压/舒张压，单位：mmHg",
+          "placeholder": "例如：120/80",
+          "validation": {
+            "pattern": "^\\d{2,3}\\/\\d{2,3}$",
+            "message": "请输入正确的血压格式，如：120/80"
+          }
+        },
+        {
+          "id": "vital_003",
+          "label": "心率",
+          "type": "number",
+          "required": true,
+          "description": "单位：次/分钟",
+          "validation": {
+            "min": 40,
+            "max": 180
+          },
+          "placeholder": "请输入心率数值"
+        },
+        {
+          "id": "vital_004",
+          "label": "血氧饱和度",
+          "type": "number",
+          "required": true,
+          "description": "单位：%",
+          "validation": {
+            "min": 0,
+            "max": 100,
+            "precision": 0
+          },
+          "placeholder": "请输入血氧饱和度"
+        }
+      ]
+    },
+    {
+      "id": "template_002",
+      "name": "麻醉术前评估表",
+      "description": "全面的麻醉术前评估模板，包含患者基本情况、既往史、过敏史等关键信息",
+      "isPublic": true,
+      "createdBy": "system",
+      "createdAt": "2024-03-05",
+      "fields": [
+        {
+          "id": "pre_001",
+          "label": "ASA分级",
+          "type": "radio",
+          "required": true,
+          "description": "美国麻醉医师协会体格状态分级",
+          "options": [
+            {
+              "label": "ASA I级：健康",
+              "value": "1"
+            },
+            {
+              "label": "ASA II级：轻度系统性疾病",
+              "value": "2"
+            },
+            {
+              "label": "ASA III级：重度系统性疾病",
+              "value": "3"
+            },
+            {
+              "label": "ASA IV级：威胁生命的系统性疾病",
+              "value": "4"
+            },
+            {
+              "label": "ASA V级：濒死病人",
+              "value": "5"
+            }
+          ],
+          "layout": "vertical"
+        },
+        {
+          "id": "pre_002",
+          "label": "既往手术史",
+          "type": "textarea",
+          "required": true,
+          "description": "请详细描述既往手术经历和麻醉情况",
+          "placeholder": "请描述手术时间、类型、麻醉方式等信息"
+        },
+        {
+          "id": "pre_003",
+          "label": "过敏史",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            {
+              "label": "未发现过敏史",
+              "value": "none"
+            },
+            {
+              "label": "局麻药",
+              "value": "local"
+            },
+            {
+              "label": "抗生素",
+              "value": "antibiotic"
+            },
+            {
+              "label": "止痛药",
+              "value": "painkiller"
+            },
+            {
+              "label": "其他药物",
+              "value": "other"
+            }
+          ],
+          "layout": "vertical"
+        },
+        {
+          "id": "pre_004",
+          "label": "心血管疾病",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "无",
+              "value": "none"
+            },
+            {
+              "label": "高血压",
+              "value": "hypertension"
+            },
+            {
+              "label": "冠心病",
+              "value": "chd"
+            },
+            {
+              "label": "心律失常",
+              "value": "arrhythmia"
+            },
+            {
+              "label": "其他",
+              "value": "other"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "template_003",
+      "name": "全麻恢复室观察记录",
+      "description": "术后恢复室标准监测表，用于记录患者苏醒过程中的各项指标",
+      "isPublic": true,
+      "createdBy": "system",
+      "createdAt": "2024-03-10",
+      "fields": [
+        {
+          "id": "pacu_001",
+          "label": "意识状态",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "清醒",
+              "value": "awake"
+            },
+            {
+              "label": "嗜睡",
+              "value": "drowsy"
+            },
+            {
+              "label": "浅昏迷",
+              "value": "stupor"
+            },
+            {
+              "label": "昏迷",
+              "value": "coma"
+            }
+          ]
+        },
+        {
+          "id": "pacu_002",
+          "label": "疼痛评分",
+          "type": "number",
+          "required": true,
+          "description": "视觉模拟评分法(VAS)",
+          "validation": {
+            "min": 0,
+            "max": 10,
+            "precision": 0
+          },
+          "placeholder": "0-10分"
+        },
+        {
+          "id": "pacu_003",
+          "label": "恶心呕吐",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            {
+              "label": "无",
+              "value": "none"
+            },
+            {
+              "label": "轻度恶心",
+              "value": "mild"
+            },
+            {
+              "label": "重度恶心",
+              "value": "severe"
+            },
+            {
+              "label": "呕吐",
+              "value": "vomiting"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "template_004",
+      "name": "手术麻醉记录表",
+      "description": "用于记录手术麻醉过程中的关键数据和观察指标",
+      "isPublic": true,
+      "createdBy": "system",
+      "createdAt": "2024-03-15",
+      "fields": [
+        {
+          "id": "op_001",
+          "label": "麻醉方式",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "全身麻醉",
+              "value": "general"
+            },
+            {
+              "label": "局部麻醉",
+              "value": "local"
+            },
+            {
+              "label": "硬膜外麻醉",
+              "value": "epidural"
+            },
+            {
+              "label": "腰椎麻醉",
+              "value": "spinal"
+            },
+            {
+              "label": "复合麻醉",
+              "value": "combined"
+            }
+          ]
+        },
+        {
+          "id": "op_002",
+          "label": "麻醉用药记录",
+          "type": "textarea",
+          "required": true,
+          "description": "记录麻醉药物的名称、剂量和给药时间",
+          "placeholder": "格式：药品名称 - 剂量 - 给药时间"
+        },
+        {
+          "id": "op_003",
+          "label": "术中并发症",
+          "type": "checkbox",
+          "required": false,
+          "options": [
+            {
+              "label": "无",
+              "value": "none"
+            },
+            {
+              "label": "低血压",
+              "value": "hypotension"
+            },
+            {
+              "label": "心律失常",
+              "value": "arrhythmia"
+            },
+            {
+              "label": "过敏反应",
+              "value": "allergy"
+            },
+            {
+              "label": "呼吸抑制",
+              "value": "respiratory_depression"
+            }
+          ],
+          "layout": "vertical"
+        },
+        {
+          "id": "op_004",
+          "label": "出血量",
+          "type": "number",
+          "required": true,
+          "description": "单位：ml",
+          "validation": {
+            "min": 0,
+            "max": 5000,
+            "precision": 0
+          }
+        },
+        {
+          "id": "op_005",
+          "label": "输液量",
+          "type": "number",
+          "required": true,
+          "description": "单位：ml",
+          "validation": {
+            "min": 0,
+            "max": 10000,
+            "precision": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "template_005",
+      "name": "术后随访记录",
+      "description": "用于记录术后患者恢复情况和随访结果",
+      "isPublic": true,
+      "createdBy": "system",
+      "createdAt": "2024-03-20",
+      "fields": [
+        {
+          "id": "follow_001",
+          "label": "疼痛情况",
+          "type": "radio",
+          "required": true,
+          "options": [
+            {
+              "label": "无痛",
+              "value": "0"
+            },
+            {
+              "label": "轻度疼痛",
+              "value": "1"
+            },
+            {
+              "label": "中度疼痛",
+              "value": "2"
+            },
+            {
+              "label": "重度疼痛",
+              "value": "3"
+            }
+          ],
+          "layout": "horizontal"
+        },
+        {
+          "id": "follow_002",
+          "label": "伤口愈合情况",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "愈合良好",
+              "value": "good"
+            },
+            {
+              "label": "轻度感染",
+              "value": "mild_infection"
+            },
+            {
+              "label": "愈合不良",
+              "value": "poor"
+            },
+            {
+              "label": "需要重新处理",
+              "value": "need_treatment"
+            }
+          ]
+        },
+        {
+          "id": "follow_003",
+          "label": "并发症记录",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            {
+              "label": "无并发症",
+              "value": "none"
+            },
+            {
+              "label": "切口感染",
+              "value": "incision_infection"
+            },
+            {
+              "label": "深静脉血栓",
+              "value": "dvt"
+            },
+            {
+              "label": "肺部感染",
+              "value": "pneumonia"
+            },
+            {
+              "label": "其他",
+              "value": "other"
+            }
+          ],
+          "layout": "vertical"
+        }
+      ]
+    }
+  ]
+}

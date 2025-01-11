@@ -2,15 +2,13 @@
 import { Table, Card, Button, Space, Tag } from 'antd';
 import { PlusOutlined, ExperimentOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import mockData from '../../mock/experimentData.json';
-import { useRouteTransition } from '@/app/contexts/RouteTransitionContext';
 import { useRouteNavigate } from '@/app/hooks/useRouteNavigate';
 
 const ExperimentManagementPage = () => {
   const { navigate } = useRouteNavigate();
   const [loading] = useState(false);
-  const { experimentTypes, experiments, dataTemplates } = mockData;
+  const { experiments } = mockData;
 
   const columns = [
     {
@@ -107,6 +105,7 @@ const ExperimentManagementPage = () => {
       bodyStyle={{ padding: '12px 24px' }}
     >
       <Table
+        // @ts-expect-error fixed type no problem
         columns={columns}
         dataSource={experiments}
         loading={loading}

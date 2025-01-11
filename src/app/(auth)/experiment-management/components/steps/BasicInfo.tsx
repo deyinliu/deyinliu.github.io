@@ -1,11 +1,30 @@
 "use client";
-import { Form, Input, DatePicker, Space } from 'antd';
+import { Form, Input, DatePicker } from 'antd';
+import { useEffect } from 'react';
+import { useExperimentFormStore } from '@/stores/experimentFormStore';
+
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const BasicInfo = () => {
+  const [form] = Form.useForm();
+  const { basicInfo, setBasicInfo } = useExperimentFormStore();
+
+  useEffect(() => {
+    form.setFieldsValue(basicInfo);
+  }, [form, basicInfo]);
+
+  const handleValuesChange = (_: any, allValues: any) => {
+    setBasicInfo(allValues);
+  };
+
   return (
-    <>
+    <Form
+      form={form}
+      layout="vertical"
+      initialValues={basicInfo}
+      onValuesChange={handleValuesChange}
+    >
       <Form.Item
         label="实验主题"
         name="experimentTitle"
@@ -53,7 +72,7 @@ const BasicInfo = () => {
       >
         <TextArea rows={4} placeholder="请输入关键节点，每行一个" />
       </Form.Item>
-    </>
+    </Form>
   );
 };
 

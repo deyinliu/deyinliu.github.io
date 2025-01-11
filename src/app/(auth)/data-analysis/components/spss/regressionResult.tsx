@@ -1,8 +1,8 @@
 import React from 'react';
 import { Table, Card, Row, Col } from 'antd';
-import { RegressionDisplayData } from '../../types/regressionTypes';
+import { RegressionDisplayData } from '../../../../types/regressionTypes';
 import { VariableScatterPlots } from './plots';
-import { metricLabels } from '../../types/labels';
+import { metricLabels } from '../../../../types/labels';
 
 interface Props {
   data: RegressionDisplayData;

@@ -1,66 +1,32 @@
 "use client";
-import { Card, Form, Input, DatePicker, Radio, Checkbox, InputNumber } from 'antd';
+import React from 'react';
+import { Form, Card } from 'antd';
 import type { DataTemplate } from '@/types/experiment';
+import FieldPreview from './FieldPreview';
 
 interface TemplatePreviewProps {
-  template: DataTemplate;
+  template: Partial<DataTemplate>;
+  showCard?: boolean;
 }
 
-const TemplatePreview: React.FC<TemplatePreviewProps> = ({ template }) => {
-  const renderField = (field: any) => {
-    switch (field.type) {
-      case 'text':
-        return <Input disabled placeholder={`请输入${field.label}`} />;
-      case 'number':
-        return <InputNumber disabled style={{ width: '100%' }} placeholder={`请输入${field.label}`} />;
-      case 'date':
-        return <DatePicker disabled style={{ width: '100%' }} />;
-      case 'radio':
-        return (
-          <Radio.Group disabled>
-            {field.options?.map((opt: any) => (
-              <Radio key={opt.value} value={opt.value}>
-                {opt.label}
-              </Radio>
-            ))}
-          </Radio.Group>
-        );
-      case 'checkbox':
-        return (
-          <Checkbox.Group disabled>
-            {field.options?.map((opt: any) => (
-              <Checkbox key={opt.value} value={opt.value}>
-                {opt.label}
-              </Checkbox>
-            ))}
-          </Checkbox.Group>
-        );
-      default:
-        return <Input disabled />;
-    }
-  };
+const TemplatePreview: React.FC<TemplatePreviewProps> = ({ template, showCard = true }) => {
+  const content = (
+    <Form layout="vertical">
+      {template.fields?.map((field) => (
+        <FieldPreview key={field.id} field={field} />
+      ))}
+    </Form>
+  );
+
+  if (!showCard) return content;
 
   return (
-    <div>
-      <Card>
-        <Form layout="vertical">
-          {template?.fields?.map((field) => (
-            <Form.Item
-              key={field.id}
-              label={
-                <span>
-                  {field.label}
-                  {field.required && <span style={{ color: '#ff4d4f' }}> *</span>}
-                </span>
-              }
-              extra={field.description}
-            >
-              {renderField(field)}
-            </Form.Item>
-          ))}
-        </Form>
-      </Card>
-    </div>
+    <Card
+      title={template.name}
+      extra={template.fields?.length ? `${template.fields.length}个字段` : undefined}
+    >
+      {content}
+    </Card>
   );
 };
 

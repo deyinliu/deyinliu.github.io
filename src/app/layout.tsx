@@ -14,7 +14,7 @@ export default function RootLayout({
     <html lang="zh">
       <head>
         <meta name="format-detection" content="telephone=no,email=no" />
-        <meta http-equiv="Content-Security-Policy" content="form-action 'self'" />
+        <meta httpEquiv="Content-Security-Policy" content="form-action 'self'" />
       </head>
       <body className={geist.className}>
         <div id="global-loading" style={{
@@ -26,15 +26,13 @@ export default function RootLayout({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          background: 'white',
           zIndex: 9999,
           transition: 'opacity 0.3s'
         }}>
-          <div style={{ textAlign: 'center' }}>
-            <div className="loading-icon">⚙️</div>
-            <div style={{ marginTop: '16px', fontSize: '16px' }}>
-              系统初始化中...
-            </div>
+          <div className="loading-animation">
+            <div className="wave-circle"></div>
+            <div className="wave-circle"></div>
+            <div className="wave-circle"></div>
           </div>
         </div>
         {children}

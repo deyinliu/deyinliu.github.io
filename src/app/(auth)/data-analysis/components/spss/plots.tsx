@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Row, Col, Select, Empty } from 'antd';
 import { Scatter } from '@ant-design/plots';
-import type { VariableScatterData } from '../../types/regressionTypes';
+import type { VariableScatterData } from '../../../../types/regressionTypes';
 
 interface Props {
   variableData: VariableScatterData[];

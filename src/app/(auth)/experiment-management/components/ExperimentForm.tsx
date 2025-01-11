@@ -1,11 +1,11 @@
 "use client";
 import { useState } from 'react';
-import { Card, Steps, Form, Button, message } from 'antd';
+import { Card, Steps, Button, message } from 'antd';
 import { ExperimentOutlined } from '@ant-design/icons';
 import BasicInfo from './steps/BasicInfo';
 import DataTemplate from './steps/DataTemplate';
 import Preview from './steps/Preview';
-import { ExperimentData } from '@/types/experiment';
+import { useExperimentFormStore } from '@/stores/experimentFormStore';
 
 const steps = [
   { title: '基本信息', icon: <ExperimentOutlined /> },
@@ -15,17 +15,18 @@ const steps = [
 
 const ExperimentForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [form] = Form.useForm();
-  const [experimentData, setExperimentData] = useState<ExperimentData>();
+  const { basicInfo, dataTemplate } = useExperimentFormStore();
 
-  const next = async () => {
-    try {
-      const values = await form.validateFields();
-      setExperimentData((prev) => ({ ...prev, ...values }));
-      setCurrentStep(currentStep + 1);
-    } catch (error) {
-      message.error('请填写完整信息');
+  const next = () => {
+    if (currentStep === 0 && !basicInfo.experimentTitle) {
+      message.error('请完成基本信息填写');
+      return;
     }
+    if (currentStep === 1 && !dataTemplate) {
+      message.error('请选择或创建数据模板');
+      return;
+    }
+    setCurrentStep(currentStep + 1);
   };
 
   const prev = () => {
@@ -34,11 +35,13 @@ const ExperimentForm = () => {
 
   const onFinish = async () => {
     try {
-      const values = await form.validateFields();
-      const finalData = { ...experimentData, ...values };
+      const finalData = {
+        ...basicInfo,
+        dataTemplate,
+      };
       console.log('Success:', finalData);
       message.success('创建成功');
-    } catch (error) {
+    } catch {
       message.error('提交失败');
     }
   };
@@ -46,19 +49,17 @@ const ExperimentForm = () => {
   const steps_content = [
     <BasicInfo key="basic" />,
     <DataTemplate key="template" />,
-    <Preview key="preview" data={experimentData} />,
+    <Preview key="preview" />,
   ];
 
   return (
     <Card title="创建实验">
       <Steps current={currentStep} items={steps} style={{ marginBottom: 24 }} />
-      <Form
-        form={form}
-        layout="vertical"
-        style={{ maxWidth: 800, margin: '0 auto' }}
-      >
-        {steps_content[currentStep]}
-        <Form.Item style={{ marginTop: 24 }}>
+      <div style={{ maxWidth: 800, margin: '0 auto' }}>
+        <div style={{ minHeight: 400 }}>
+          {steps_content[currentStep]}
+        </div>
+        <div style={{ marginTop: 24 }}>
           {currentStep > 0 && (
             <Button style={{ margin: '0 8px' }} onClick={prev}>
               上一步
@@ -74,8 +75,8 @@ const ExperimentForm = () => {
               提交
             </Button>
           )}
-        </Form.Item>
-      </Form>
+        </div>
+      </div>
     </Card>
   );
 };

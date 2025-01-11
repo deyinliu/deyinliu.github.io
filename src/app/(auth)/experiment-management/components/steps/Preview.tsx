@@ -1,52 +1,52 @@
 "use client";
-import { Card, Descriptions, Divider, Form, Space, Tag } from 'antd';
+import { Card, Descriptions, Divider, Tag } from 'antd';
 import dayjs from 'dayjs';
-import type { ExperimentData, DataTemplate } from '@/types/experiment';
+import { useExperimentFormStore } from '@/stores/experimentFormStore';
 import TemplatePreview from '../template/TemplatePreview';
 
-interface PreviewProps {
-  data: ExperimentData;
-}
+const Preview = () => {
+  const { basicInfo, dataTemplate } = useExperimentFormStore();
 
-const Preview: React.FC<PreviewProps> = ({ data }) => {
   return (
     <div>
       <Card title="基本信息" bordered={false}>
         <Descriptions column={1}>
           <Descriptions.Item label="实验主题">
-            {data.experimentTitle}
+            {basicInfo.experimentTitle || '-'}
           </Descriptions.Item>
           <Descriptions.Item label="实验目标">
-            {data.experimentObjective}
+            {basicInfo.experimentObjective || '-'}
           </Descriptions.Item>
           <Descriptions.Item label="实验内容">
-            {data.experimentContent}
+            {basicInfo.experimentContent || '-'}
           </Descriptions.Item>
           <Descriptions.Item label="实验周期">
-            {data.experimentPeriod?.[0] && data.experimentPeriod?.[1]
-              ? `${dayjs(data.experimentPeriod[0]).format('YYYY-MM-DD')} 至 ${dayjs(data.experimentPeriod[1]).format('YYYY-MM-DD')}`
+            {basicInfo.experimentPeriod?.[0] && basicInfo.experimentPeriod?.[1]
+              ? `${dayjs(basicInfo.experimentPeriod[0]).format('YYYY-MM-DD')} 至 ${dayjs(basicInfo.experimentPeriod[1]).format('YYYY-MM-DD')}`
               : '-'}
           </Descriptions.Item>
           <Descriptions.Item label="关键产出">
-            {data.keyOutput}
+            {basicInfo.keyOutput || '-'}
           </Descriptions.Item>
           <Descriptions.Item label="关键节点">
-            {data.keyMilestones?.split('\n').map((milestone, index) => (
+            {basicInfo.keyMilestones?.split('\n').map((milestone, index) => (
               <div key={index}>{milestone}</div>
-            ))}
+            )) || '-'}
           </Descriptions.Item>
         </Descriptions>
       </Card>
 
       <Divider />
 
-      <Card
-        title="数据采集模板"
-        bordered={false}
-        extra={data.dataTemplate?.isPublic && <Tag color="blue">公共模板</Tag>}
-      >
-        <TemplatePreview template={data.dataTemplate} />
-      </Card>
+      {dataTemplate && (
+        <Card
+          title="数据采集模板"
+          bordered={false}
+          extra={dataTemplate.isPublic && <Tag color="blue">公共模板</Tag>}
+        >
+          <TemplatePreview template={dataTemplate} showCard={false} />
+        </Card>
+      )}
     </div>
   );
 };
