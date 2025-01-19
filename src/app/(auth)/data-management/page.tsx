@@ -2,10 +2,14 @@
 import { Table, Card, Button, Space, Tag, Input, Tabs, DatePicker, message } from 'antd';
 import { DatabaseOutlined, UploadOutlined, FilterOutlined } from '@ant-design/icons';
 import { useState } from 'react';
+import { useRouteNavigate } from '@/app/hooks/useRouteNavigate';
+import { useDataStore } from './store/useDataStore';
 
 const DataManagementPage = () => {
   const [loading] = useState(false);
   const [activeTab, setActiveTab] = useState('1');
+  const { navigate } = useRouteNavigate();
+  const { dataList } = useDataStore();
 
   const columns = [
     {
@@ -131,9 +135,12 @@ const DataManagementPage = () => {
     message.warning(`归档数据: ${record.id}`);
   };
 
-  const handleImport = () => {
-    message.info('导入功能开发中...');
+  const handleDataImport = () => {
+    // 跳转到数据接入页面
+    navigate('/data-management/import/');
   };
+
+  const allData = [...dataList, ...mockData];  // 合并已保存的数据和模拟数据
 
   const items = [
     {
@@ -151,8 +158,8 @@ const DataManagementPage = () => {
               style={{ width: 300 }}
               placeholder={['开始日期', '结束日期']}
             />
-            <Button type="primary" icon={<UploadOutlined />} onClick={handleImport}>
-              导入数据
+            <Button type="primary" icon={<UploadOutlined />} onClick={handleDataImport}>
+              数据接入
             </Button>
             <Button icon={<FilterOutlined />}>
               高级筛选
@@ -160,11 +167,11 @@ const DataManagementPage = () => {
           </Space>
           <Table
             columns={columns}
-            dataSource={mockData}
+            dataSource={allData}
             loading={loading}
             rowKey="id"
             pagination={{
-              total: mockData.length,
+              total: allData.length,
               pageSize: 10,
               showSizeChanger: true,
               showQuickJumper: true,

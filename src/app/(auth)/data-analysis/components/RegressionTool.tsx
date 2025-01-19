@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { Typography, Select, Button, Row, Col, Table, message, Tooltip, Card, Alert, Space } from 'antd';
-import { LineChartOutlined } from '@ant-design/icons';
+import { LineChartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import DataSelector from './common/DataSelector';
 import { RegressionDisplayData } from '../../../types/regressionTypes';
 import MultipleRegression from '../../../utils/spss/multiRegression';
@@ -17,6 +17,7 @@ const RegressionTool: React.FC = () => {
   const [independentVariables, setIndependentVariables] = useState<string[]>([]);
   const [regressionTFChartData, setRegressionTFChartData] = useState<RegressionDisplayData>();
   const [messageApi, contextHolder] = message.useMessage();
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   const handleDataParse = (headers: string[], parsedData: any[][]) => {
     setHeaders(headers);
@@ -39,6 +40,68 @@ const RegressionTool: React.FC = () => {
     setIndependentVariables(values);
   };
 
+  const validateVariables = (x: number[][], independentVars: string[]): string | null => {
+    // 检查固定值列
+    const hasConstantColumn = independentVars.some((_, colIndex) => {
+      const columnValues = x.map(row => row[colIndex]);
+      return columnValues.every(v => v === columnValues[0]);
+    });
+    if (hasConstantColumn) {
+      return '选择的自变量中包含固定值列，这会导致回归分析无法进行。请选择有变化的变量。';
+    }
+
+    // 检查多重共线性
+    if (independentVars.length > 1) {
+      const correlations = calculateCorrelations(x);
+      const highCorrelation = correlations.some((row, i) =>
+        row.some((corr, j) => i !== j && Math.abs(corr) > 0.8)
+      );
+      if (highCorrelation) {
+        return '选择的自变量之间存在强相关性（相关系数>0.8），这可能导致多重共线性问题。建议选择相关性较低的变量。';
+      }
+    }
+
+    // 检查样本量是否足够
+    if (x.length < independentVars.length * 10) {
+      return `样本量不足。对于${independentVars.length}个自变量，建议至少需要${independentVars.length * 10}个样本，当前仅有${x.length}个样本。`;
+    }
+
+    return null;
+  };
+
+  const calculateCorrelations = (x: number[][]): number[][] => {
+    const numVars = x[0].length;
+    const correlations = Array(numVars).fill(0).map(() => Array(numVars).fill(0));
+
+    for (let i = 0; i < numVars; i++) {
+      for (let j = 0; j < numVars; j++) {
+        const col1 = x.map(row => row[i]);
+        const col2 = x.map(row => row[j]);
+        correlations[i][j] = calculateCorrelation(col1, col2);
+      }
+    }
+    return correlations;
+  };
+
+  const calculateCorrelation = (x: number[], y: number[]): number => {
+    const xMean = x.reduce((a, b) => a + b) / x.length;
+    const yMean = y.reduce((a, b) => a + b) / y.length;
+
+    let numerator = 0;
+    let xDenom = 0;
+    let yDenom = 0;
+
+    for (let i = 0; i < x.length; i++) {
+      const xDiff = x[i] - xMean;
+      const yDiff = y[i] - yMean;
+      numerator += xDiff * yDiff;
+      xDenom += xDiff * xDiff;
+      yDenom += yDiff * yDiff;
+    }
+
+    return numerator / Math.sqrt(xDenom * yDenom);
+  };
+
   const performRegression = () => {
     if (!dependentVariable || independentVariables.length === 0) {
       messageApi.warning('请选择因变量和至少一个自变量！');
@@ -53,9 +116,21 @@ const RegressionTool: React.FC = () => {
     const x = data.map((row) => independentVariableIndices.map((index) => row[index]));
     const y = data.map((row) => row[dependentVariableIndex]);
 
-    const regressionResult = MultipleRegression.analyze(x, y, independentVariables);
-    const regressionChartData = transformRegressionResults(regressionResult, independentVariables, dependentVariable, x, y);
-    setRegressionTFChartData(regressionChartData);
+    // 数据验证
+    const error = validateVariables(x, independentVariables);
+    if (error) {
+      setValidationError(error);
+      return;
+    }
+    setValidationError(null);
+
+    try {
+      const regressionResult = MultipleRegression.analyze(x, y, independentVariables);
+      const regressionChartData = transformRegressionResults(regressionResult, independentVariables, dependentVariable, x, y);
+      setRegressionTFChartData(regressionChartData);
+    } catch (err) {
+      setValidationError(`回归分析失败: ${err.message}`);
+    }
   };
 
   const previewData = data.slice(0, 100).map((row, index) => {
@@ -176,6 +251,21 @@ const RegressionTool: React.FC = () => {
             </>
           )}
         </Space>
+
+        {validationError && (
+          <Alert
+            message="数据验证错误"
+            description={
+              <Space>
+                <InfoCircleOutlined />
+                {validationError}
+              </Space>
+            }
+            type="error"
+            showIcon
+            style={{ marginTop: 16, marginBottom: 16 }}
+          />
+        )}
 
         <Alert
           message="结果说明"
